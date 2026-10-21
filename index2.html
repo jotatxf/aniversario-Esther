@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Primeiro ano da Esther — confirme sua presença</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Lora:wght@500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF1D6; --surface:#FFF8E4; --ink:#6E502C; --text:#6B5639; --muted:#9A835F;
+  --line:#E4D3AA; --olive:#8B8259; --ground:#EFE2BC; --btn:#6E502C; --btn-text:#FFF8E4; --error:#B4513A;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#2A2118; --surface:#33281D; --ink:#F2E2BF; --text:#E2CFAA; --muted:#B49D7A;
+    --line:#4B3C2B; --olive:#B4AC80; --ground:#3A2E21; --btn:#EBD5A4; --btn-text:#2A2118; --error:#E8907A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#2A2118; --surface:#33281D; --ink:#F2E2BF; --text:#E2CFAA; --muted:#B49D7A;
+  --line:#4B3C2B; --olive:#B4AC80; --ground:#3A2E21; --btn:#EBD5A4; --btn-text:#2A2118; --error:#E8907A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+main{max-width:460px;margin:0 auto;padding:40px 22px 56px}
+
+/* Cabeçalho no estilo do convite */
+.capa{text-align:center}
+.sobre{font-weight:500;font-size:.82rem;letter-spacing:.32em;text-transform:uppercase;color:var(--text);margin:0 0 2px;padding-left:.32em}
+.nome{font-family:"Parisienne","Brush Script MT",cursive;font-weight:400;font-size:clamp(4.2rem,22vw,5.6rem);line-height:1.05;color:var(--ink);margin:0 0 14px}
+.divisor{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 auto 18px;color:var(--olive)}
+.divisor::before,.divisor::after{content:"";height:1.5px;width:68px;background:var(--olive);opacity:.8}
+.divisor svg{width:14px;height:13px}
+.data{font-family:"Lora",Georgia,"Times New Roman",serif;font-weight:500;font-size:2.15rem;letter-spacing:.03em;color:var(--ink);margin:0 0 4px}
+.local{font-weight:500;font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:var(--text);margin:0;padding-left:.3em}
+.endereco{font-size:.88rem;color:var(--muted);margin:6px 0 0;line-height:1.45}
+.rota{margin-top:14px}
+.rota-botao{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;font-size:.88rem;color:var(--ink);background:transparent;border:1.5px solid var(--olive);border-radius:999px;padding:9px 18px;cursor:pointer}
+.rota-botao svg{width:15px;height:15px}
+.rota-apps{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}
+.rota-apps[hidden]{display:none}
+.rota-apps a{font-weight:600;font-size:.86rem;color:var(--btn-text);background:var(--btn);text-decoration:none;border-radius:999px;padding:9px 16px}
+
+.bichos{display:block;width:100%;height:auto;margin:22px 0 4px}
+
+/* Formulário */
+.rsvp{margin-top:12px;padding:28px 22px 26px;background:var(--surface);border:1px solid var(--line);border-radius:22px}
+h1,h2{font-family:"Lora",Georgia,"Times New Roman",serif;font-weight:600;font-size:1.55rem;line-height:1.2;color:var(--ink);margin:0 0 6px;text-align:center}
+.intro{margin:0 auto 24px;text-align:center;color:var(--muted);font-size:.95rem;max-width:30ch}
+label,.rotulo{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:600;color:var(--ink);font-size:.92rem;margin-bottom:8px}
+.dica{font-weight:400;color:var(--muted);font-size:.8rem}
+input[type=text],input[type=number]{width:100%;font:inherit;font-size:1.02rem;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:13px 15px;outline:none;transition:border-color .15s}
+input::placeholder{color:var(--muted);opacity:.85}
+input:focus{border-color:var(--olive)}
+input[aria-invalid=true]{border-color:var(--error)}
+.erro{color:var(--error);font-size:.85rem;margin:7px 2px 0;min-height:1.2em}
+.campo{margin-bottom:18px}
+
+.stepper{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:6px}
+.stepper button{width:48px;height:48px;border-radius:11px;border:0;background:transparent;color:var(--ink);font-size:1.6rem;line-height:1;cursor:pointer;font-family:inherit}
+.stepper button:disabled{opacity:.28;cursor:default}
+.stepper button:not(:disabled):active{background:var(--line)}
+.valor{font-family:"Lora",Georgia,serif;font-weight:600;font-size:1.9rem;color:var(--ink);min-width:3ch;text-align:center}
+.total{text-align:center;color:var(--muted);font-size:.86rem;margin:9px 0 0}
+#erro-acomp{text-align:center;margin-bottom:0}
+#erro-acomp:empty{display:none}
+.individual{background:var(--bg);border:1.5px dashed var(--line);border-radius:14px;padding:14px;text-align:center;color:var(--muted);font-size:.9rem;margin:0}
+
+.enviar{width:100%;margin-top:22px;font:inherit;font-weight:600;font-size:1rem;letter-spacing:.02em;background:var(--btn);color:var(--btn-text);border:0;border-radius:999px;padding:16px 20px;cursor:pointer}
+.enviar:active{transform:scale(.99)}
+.rodape{text-align:center;color:var(--muted);font-size:.8rem;margin:12px 0 0}
+button:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible{outline:2.5px solid var(--olive);outline-offset:3px}
+
+.obrigado{display:none;text-align:center}
+.obrigado.ativo{display:block;animation:surge .5s ease-out}
+.obrigado p{margin:0 auto 10px;max-width:32ch}
+.obrigado a{color:var(--ink);font-weight:600}
+.voltar{background:none;border:0;color:var(--muted);font:inherit;font-size:.88rem;text-decoration:underline;cursor:pointer;margin-top:14px}
+@keyframes surge{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.obrigado.ativo{animation:none}}
+
+/* Painel de teste */
+.teste{margin-top:28px;border:1.5px dashed var(--line);border-radius:16px;padding:0 16px;font-size:.88rem}
+.teste summary{cursor:pointer;padding:13px 0;color:var(--muted);font-weight:600;list-style-position:inside}
+.teste .corpo{padding:0 0 16px}
+.teste p{color:var(--muted);margin:0 0 12px;font-size:.82rem}
+.teste input[type=number]{max-width:110px}
+
+/* Lista de acompanhantes */
+.acomp-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.acomp-item{display:flex;gap:8px;align-items:center}
+.acomp-item input{flex:1}
+.remover{flex:none;width:46px;height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--muted);font-size:1.3rem;line-height:1;cursor:pointer;font-family:inherit}
+.remover:hover{color:var(--error);border-color:var(--error)}
+.adicionar{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:13px;border-radius:14px;border:1.5px dashed var(--olive);background:transparent;color:var(--ink);font:inherit;font-weight:600;font-size:.95rem;cursor:pointer}
+.adicionar:hover{background:var(--bg)}
+.vazio{color:var(--muted);font-size:.88rem;margin:0 0 2px;text-align:center}
+.enviar:disabled{opacity:.6;cursor:default}
+.erro-envio{text-align:center}
+.erro:empty{display:none}
+</style>
+</head>
+<body>
+<main>
+  <header class="capa">
+    <p class="sobre">Primeiro ano da</p>
+    <p class="nome">Esther</p>
+    <div class="divisor" aria-hidden="true">
+      <svg viewBox="0 0 14 13"><path d="M7 12.2C3 9.4.5 7.2.5 4.3.5 2.2 2.1.7 4 .7c1.3 0 2.4.7 3 1.8C7.6 1.4 8.7.7 10 .7c1.9 0 3.5 1.5 3.5 3.6 0 2.9-2.5 5.1-6.5 7.9z" fill="currentColor"/></svg>
+    </div>
+    <p class="data">17/01/2027</p>
+    <p class="local">Fanfarra Buffet</p>
+    <p class="endereco">Av. Cezar Hilal, 508 – Bento Ferreira<br>Vitória – ES</p>
+    <div class="rota">
+      <button type="button" class="rota-botao" id="rotaBotao" aria-expanded="false" aria-controls="rotaApps">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
+        Como chegar
+      </button>
+      <div class="rota-apps" id="rotaApps" hidden>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Fanfarra%20Buffet%2C%20Av.%20Cezar%20Hilal%2C%20508%20-%20Bento%20Ferreira%2C%20Vit%C3%B3ria%20-%20ES" target="_blank" rel="noopener">Google Maps</a>
+        <a href="https://waze.com/ul?q=Av.%20Cezar%20Hilal%2C%20508%20-%20Bento%20Ferreira%2C%20Vit%C3%B3ria%20-%20ES&amp;navigate=yes" target="_blank" rel="noopener">Waze</a>
+        <a href="https://maps.apple.com/?q=Fanfarra%20Buffet&amp;address=Av.%20Cezar%20Hilal%2C%20508%2C%20Bento%20Ferreira%2C%20Vit%C3%B3ria%20-%20ES" target="_blank" rel="noopener" id="rotaApple" hidden>Mapas (iPhone)</a>
+      </div>
+    </div>
+  </header>
+
+  <svg class="bichos" viewBox="0 0 420 250" role="img" aria-label="Um urso, um ouriço, um cervo e um coelho em volta de um cogumelo vermelho, com um passarinho no chapéu do cogumelo">
+    <!-- borboleta -->
+    <g transform="translate(46 34) rotate(-12)">
+      <path d="M0 0 C-14 -14 -20 -2 -10 4 C-16 10 -8 16 0 4 Z" fill="#E3B76A"/>
+      <path d="M0 0 C14 -14 20 -2 10 4 C16 10 8 16 0 4 Z" fill="#EBC47E"/>
+      <path d="M0 -4 L0 6" stroke="#8A6A45" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <path d="M38 44 q-8 10 -2 18 q6 8 -4 16" fill="none" stroke="#C9B48E" stroke-width="1" stroke-dasharray="2 3"/>
+
+    <!-- chão -->
+    <ellipse cx="210" cy="226" rx="196" ry="16" fill="var(--ground)"/>
+
+    <!-- ramos de folhas -->
+    <g fill="#9AA06E">
+      <path d="M30 226 C26 190 30 160 40 130" stroke="#8B8B5E" stroke-width="2" fill="none"/>
+      <ellipse cx="40" cy="126" rx="5" ry="11" transform="rotate(20 40 126)"/>
+      <ellipse cx="27" cy="150" rx="5" ry="11" transform="rotate(-40 27 150)"/>
+      <ellipse cx="45" cy="158" rx="5" ry="11" transform="rotate(45 45 158)"/>
+      <ellipse cx="22" cy="180" rx="5" ry="11" transform="rotate(-45 22 180)"/>
+      <ellipse cx="41" cy="190" rx="5" ry="11" transform="rotate(50 41 190)"/>
+      <path d="M392 226 C396 190 392 160 382 130" stroke="#8B8B5E" stroke-width="2" fill="none"/>
+      <ellipse cx="382" cy="126" rx="5" ry="11" transform="rotate(-20 382 126)"/>
+      <ellipse cx="395" cy="150" rx="5" ry="11" transform="rotate(40 395 150)"/>
+      <ellipse cx="377" cy="158" rx="5" ry="11" transform="rotate(-45 377 158)"/>
+      <ellipse cx="400" cy="180" rx="5" ry="11" transform="rotate(45 400 180)"/>
+      <ellipse cx="381" cy="190" rx="5" ry="11" transform="rotate(-50 381 190)"/>
+    </g>
+
+    <!-- urso -->
+    <g>
+      <ellipse cx="112" cy="176" rx="56" ry="50" fill="#C99A6A"/>
+      <ellipse cx="114" cy="186" rx="34" ry="34" fill="#D9AF80"/>
+      <circle cx="76" cy="66" r="14" fill="#C99A6A"/><circle cx="76" cy="66" r="7.5" fill="#E2B98C"/>
+      <circle cx="140" cy="66" r="14" fill="#C99A6A"/><circle cx="140" cy="66" r="7.5" fill="#E2B98C"/>
+      <circle cx="108" cy="100" r="41" fill="#CFA172"/>
+      <ellipse cx="109" cy="116" rx="17" ry="13" fill="#EED2A6"/>
+      <ellipse cx="109" cy="108" rx="6.5" ry="4.8" fill="#4A3322"/>
+      <path d="M109 112.5 v4 M103 118 q6 4 12 0" stroke="#4A3322" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <circle cx="91" cy="96" r="3.8" fill="#3B2A1C"/><circle cx="92.3" cy="94.7" r="1.1" fill="#fff"/>
+      <circle cx="126" cy="96" r="3.8" fill="#3B2A1C"/><circle cx="127.3" cy="94.7" r="1.1" fill="#fff"/>
+      <ellipse cx="82" cy="112" rx="8" ry="5" fill="#E79A7C" opacity=".55"/>
+      <ellipse cx="136" cy="112" rx="8" ry="5" fill="#E79A7C" opacity=".55"/>
+      <ellipse cx="156" cy="190" rx="13" ry="22" fill="#C2915F" transform="rotate(-20 156 190)"/>
+      <ellipse cx="152" cy="216" rx="17" ry="11" fill="#C2915F"/>
+      <ellipse cx="156" cy="216" rx="8" ry="6" fill="#E2B98C"/>
+    </g>
+
+    <!-- cervo -->
+    <g>
+      <ellipse cx="334" cy="190" rx="58" ry="32" fill="#C99263"/>
+      <g fill="#F4E4CB"><circle cx="330" cy="174" r="3"/><circle cx="346" cy="170" r="2.6"/><circle cx="360" cy="178" r="3"/><circle cx="342" cy="186" r="2.6"/><circle cx="372" cy="192" r="2.4"/><circle cx="356" cy="196" r="2.6"/><circle cx="318" cy="186" r="2.4"/></g>
+      <ellipse cx="390" cy="190" rx="8" ry="11" fill="#E9D3B6" transform="rotate(30 390 190)"/>
+      <path d="M282 182 C280 160 288 142 300 132 L324 140 C318 156 316 172 318 186 Z" fill="#C99263"/>
+      <path d="M296 186 C294 168 298 154 306 146 L316 150 C312 162 312 174 314 186 Z" fill="#EFD8B8"/>
+      <ellipse cx="272" cy="78" rx="10" ry="25" fill="#C99263" transform="rotate(-30 272 78)"/>
+      <ellipse cx="272" cy="78" rx="5" ry="17" fill="#EDB8A2" transform="rotate(-30 272 78)"/>
+      <ellipse cx="342" cy="82" rx="10" ry="25" fill="#C99263" transform="rotate(48 342 82)"/>
+      <ellipse cx="342" cy="82" rx="5" ry="17" fill="#EDB8A2" transform="rotate(48 342 82)"/>
+      <ellipse cx="306" cy="112" rx="32" ry="29" fill="#CF9A69"/>
+      <ellipse cx="288" cy="126" rx="15" ry="11" fill="#EFD8B8"/>
+      <ellipse cx="280" cy="122" rx="5" ry="3.8" fill="#3B2A1C"/>
+      <path d="M284 130 q5 3 10 0" stroke="#4A3322" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <circle cx="298" cy="104" r="3.6" fill="#3B2A1C"/><circle cx="299.2" cy="102.8" r="1" fill="#fff"/>
+      <ellipse cx="318" cy="120" rx="7" ry="4.5" fill="#E79A7C" opacity=".5"/>
+      <ellipse cx="296" cy="214" rx="20" ry="8" fill="#BE8757"/>
+    </g>
+
+    <!-- cogumelo -->
+    <g>
+      <path d="M196 218 C194 196 192 172 194 150 L228 150 C230 172 228 196 226 218 Z" fill="#F5EAD3"/>
+      <path d="M216 152 C220 176 220 198 218 218 L226 218 C228 196 230 172 228 150 Z" fill="#E7D7B8"/>
+      <ellipse cx="211" cy="151" rx="52" ry="8" fill="#E8D4B2"/>
+      <path d="M150 150 C150 112 176 90 211 90 C246 90 272 112 272 150 C246 158 176 158 150 150 Z" fill="#D8664A"/>
+      <path d="M232 94 C256 102 270 122 272 150 C266 152 260 153 254 154 C254 128 246 108 232 94 Z" fill="#C4553B" opacity=".55"/>
+      <g fill="#FBF0DE"><ellipse cx="180" cy="122" rx="7" ry="5.5"/><ellipse cx="206" cy="108" rx="6" ry="4.5"/><ellipse cx="234" cy="116" rx="7" ry="5.5"/><ellipse cx="166" cy="142" rx="5" ry="4"/><ellipse cx="200" cy="136" rx="6" ry="4.5"/><ellipse cx="226" cy="140" rx="5" ry="4"/><ellipse cx="256" cy="134" rx="6" ry="4.8"/><ellipse cx="190" cy="100" rx="3.5" ry="3"/><ellipse cx="250" cy="106" rx="3.5" ry="3"/></g>
+    </g>
+
+    <!-- passarinho -->
+    <g>
+      <path d="M222 82 L238 76 L232 86 Z" fill="#8F6D4A"/>
+      <ellipse cx="214" cy="83" rx="13" ry="9.5" fill="#B48D63"/>
+      <ellipse cx="210" cy="86" rx="8" ry="6" fill="#F0DFC3"/>
+      <circle cx="203" cy="76" r="7.5" fill="#B48D63"/>
+      <path d="M196 76 L190 78 L196 79.5 Z" fill="#D59A55"/>
+      <circle cx="201" cy="74.5" r="1.6" fill="#3B2A1C"/>
+      <path d="M210 92 v4 M216 92 v4" stroke="#8F6D4A" stroke-width="1.4" stroke-linecap="round"/>
+    </g>
+
+    <!-- ouriço -->
+    <g>
+      <path d="M58 220 L54 208 L62 206 L56 194 L66 194 L62 182 L72 184 L72 172 L82 177 L86 166 L94 174 L102 166 L106 177 L116 172 L118 186 L104 220 Z" fill="#7E5F43"/>
+      <ellipse cx="90" cy="202" rx="34" ry="21" fill="#94704F"/>
+      <path d="M70 196 l6 -6 M80 190 l6 -7 M92 188 l5 -7 M64 206 l6 -5" stroke="#6A4E36" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="114" cy="202" rx="19" ry="18" fill="#EDCFA6"/>
+      <circle cx="104" cy="186" r="5" fill="#E3BB8E"/>
+      <circle cx="117" cy="197" r="2.8" fill="#3B2A1C"/><circle cx="117.9" cy="196.1" r=".8" fill="#fff"/>
+      <circle cx="132" cy="204" r="2.8" fill="#3B2A1C"/>
+      <ellipse cx="119" cy="208" rx="5" ry="3" fill="#E79A7C" opacity=".55"/>
+      <ellipse cx="112" cy="220" rx="6" ry="3.5" fill="#E3BB8E"/>
+    </g>
+
+    <!-- coelho -->
+    <g>
+      <ellipse cx="256" cy="168" rx="6.5" ry="20" fill="#D3C0AC" transform="rotate(-14 256 168)"/>
+      <ellipse cx="256" cy="168" rx="3" ry="14" fill="#EDBCA8" transform="rotate(-14 256 168)"/>
+      <ellipse cx="274" cy="168" rx="6.5" ry="20" fill="#D3C0AC" transform="rotate(16 274 168)"/>
+      <ellipse cx="274" cy="168" rx="3" ry="14" fill="#EDBCA8" transform="rotate(16 274 168)"/>
+      <ellipse cx="284" cy="210" rx="26" ry="16" fill="#D3C0AC"/>
+      <circle cx="309" cy="206" r="7" fill="#F4EBDF"/>
+      <circle cx="263" cy="196" r="17" fill="#DBC9B6"/>
+      <circle cx="257" cy="193" r="2.6" fill="#3B2A1C"/><circle cx="257.8" cy="192.2" r=".8" fill="#fff"/>
+      <ellipse cx="249" cy="200" rx="2.4" ry="1.8" fill="#C98676"/>
+      <ellipse cx="266" cy="202" rx="5" ry="3" fill="#E79A7C" opacity=".5"/>
+      <ellipse cx="266" cy="221" rx="8" ry="4" fill="#E8DACB"/>
+    </g>
+
+    <!-- grama e margaridas -->
+    <g stroke="#97A06B" stroke-width="2" stroke-linecap="round" fill="none">
+      <path d="M44 228 q2 -10 -2 -16 M52 228 q0 -8 4 -12 M140 230 q-2 -10 2 -15 M176 230 q2 -10 -2 -14 M188 230 q1 -8 5 -11 M236 230 q-2 -10 2 -14 M244 230 q2 -8 -2 -12 M318 230 q-1 -9 3 -13 M366 230 q2 -10 -2 -14 M374 230 q0 -8 4 -11"/>
+    </g>
+    <g>
+      <g transform="translate(70 226)"><g fill="#FFFBF2"><circle cx="0" cy="-4" r="2.6"/><circle cx="4" cy="0" r="2.6"/><circle cx="0" cy="4" r="2.6"/><circle cx="-4" cy="0" r="2.6"/><circle cx="3" cy="-3" r="2.2"/><circle cx="-3" cy="3" r="2.2"/><circle cx="3" cy="3" r="2.2"/><circle cx="-3" cy="-3" r="2.2"/></g><circle r="2" fill="#E8B54F"/></g>
+      <g transform="translate(182 222)"><g fill="#FFFBF2"><circle cx="0" cy="-4" r="2.6"/><circle cx="4" cy="0" r="2.6"/><circle cx="0" cy="4" r="2.6"/><circle cx="-4" cy="0" r="2.6"/><circle cx="3" cy="-3" r="2.2"/><circle cx="-3" cy="3" r="2.2"/><circle cx="3" cy="3" r="2.2"/><circle cx="-3" cy="-3" r="2.2"/></g><circle r="2" fill="#E8B54F"/></g>
+      <g transform="translate(340 226)"><g fill="#FFFBF2"><circle cx="0" cy="-4" r="2.6"/><circle cx="4" cy="0" r="2.6"/><circle cx="0" cy="4" r="2.6"/><circle cx="-4" cy="0" r="2.6"/><circle cx="3" cy="-3" r="2.2"/><circle cx="-3" cy="3" r="2.2"/><circle cx="3" cy="3" r="2.2"/><circle cx="-3" cy="-3" r="2.2"/></g><circle r="2" fill="#E8B54F"/></g>
+    </g>
+  </svg>
+
+  <section class="rsvp" id="formulario" aria-labelledby="titulo">
+    <h1 id="titulo">Você vem comemorar com a gente?</h1>
+    <p class="intro">Escreva seu nome e o de cada pessoa que vai com você.</p>
+
+    <form id="form" novalidate autocomplete="off">
+      <div class="campo">
+        <label for="nome">Seu nome</label>
+        <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Nome e sobrenome" maxlength="120" aria-describedby="erro-nome">
+        <p class="erro" id="erro-nome" role="alert"></p>
+      </div>
+
+      <div class="campo">
+        <span class="rotulo" id="rotulo-acomp">Acompanhantes <span class="dica">só quem tem 4 anos ou mais</span></span>
+        <p class="vazio" id="vazio">Ninguém além de você, por enquanto.</p>
+        <ul class="acomp-lista" id="acomp-lista" aria-labelledby="rotulo-acomp"></ul>
+        <button type="button" class="adicionar" id="adicionar">+ Adicionar acompanhante</button>
+        <p class="erro" id="erro-acomp" role="alert"></p>
+        <p class="total" id="total">Só você</p>
+      </div>
+
+      <button type="submit" class="enviar" id="enviar">Confirmar presença</button>
+      <p class="erro erro-envio" id="erro-envio" role="alert"></p>
+    </form>
+  </section>
+
+  <section class="obrigado rsvp" id="obrigado" aria-live="polite">
+    <h2>Presença confirmada!</h2>
+    <p id="msg-ok"></p>
+    <p>Até dia 17 de janeiro.</p>
+    <button type="button" class="voltar" id="voltar">Corrigir minha confirmação</button>
+  </section>
+</main>
+
+<script>
+(function(){
+  // Cole aqui o link da implantação do Apps Script (termina em /exec)
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbysxB39pzl5MvzZhm6MSFmxAjBuroHho1FcrHjX3Bgg3Ev4GesQQ3R8ToQKDlbcn67d/exec";
+  var MAX = 20;
+  var $ = function(id){ return document.getElementById(id); };
+  var nome = $("nome"), erroNome = $("erro-nome"), lista = $("acomp-lista"), vazio = $("vazio");
+  var adicionar = $("adicionar"), erroAcomp = $("erro-acomp"), total = $("total");
+  var enviar = $("enviar"), erroEnvio = $("erro-envio");
+
+  function juntar(l){ return l.length < 2 ? l.join("") : l.slice(0, -1).join(", ") + " e " + l[l.length - 1]; }
+
+  function inputs(){ return Array.prototype.slice.call(lista.querySelectorAll("input")); }
+
+  function atualizar(){
+    var qtd = inputs().length;
+    vazio.hidden = qtd > 0;
+    total.textContent = qtd === 0 ? "Só você" : "Total: " + (qtd + 1) + " pessoas, contando você";
+    inputs().forEach(function(inp, i){
+      inp.setAttribute("aria-label", "Nome do acompanhante " + (i + 1));
+      inp.nextSibling.setAttribute("aria-label", "Remover acompanhante " + (i + 1));
+    });
+  }
+
+  function novoAcompanhante(valor, focar){
+    if (inputs().length >= MAX){
+      erroAcomp.textContent = "Para mais de " + MAX + " acompanhantes, fale com os pais da Esther.";
+      return;
+    }
+    erroAcomp.textContent = "";
+    var li = document.createElement("li");
+    li.className = "acomp-item";
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.maxLength = 120;
+    inp.placeholder = "Nome do acompanhante";
+    inp.value = valor || "";
+    inp.addEventListener("input", function(){ inp.removeAttribute("aria-invalid"); erroAcomp.textContent = ""; });
+    inp.addEventListener("keydown", function(e){
+      if (e.key === "Enter"){ e.preventDefault(); if (inp.value.trim()) novoAcompanhante("", true); }
+    });
+    var rm = document.createElement("button");
+    rm.type = "button";
+    rm.className = "remover";
+    rm.textContent = "×";
+    rm.addEventListener("click", function(){
+      var todos = inputs(), i = todos.indexOf(inp);
+      li.remove();
+      erroAcomp.textContent = "";
+      atualizar();
+      var resto = inputs();
+      if (resto.length) resto[Math.max(0, i - 1)].focus(); else adicionar.focus();
+    });
+    li.appendChild(inp);
+    li.appendChild(rm);
+    lista.appendChild(li);
+    atualizar();
+    if (focar) inp.focus();
+  }
+
+  adicionar.addEventListener("click", function(){ novoAcompanhante("", true); });
+  nome.addEventListener("input", function(){ if (nome.value.trim()){ erroNome.textContent = ""; nome.removeAttribute("aria-invalid"); } });
+
+  $("form").addEventListener("submit", function(e){
+    e.preventDefault();
+    erroEnvio.textContent = "";
+    var nm = nome.value.trim().replace(/\s+/g, " ");
+    if (nm.length < 2){
+      erroNome.textContent = "Escreva seu nome para confirmar.";
+      nome.setAttribute("aria-invalid", "true");
+      nome.focus();
+      return;
+    }
+    var vazios = inputs().filter(function(i){ return !i.value.trim(); });
+    if (vazios.length){
+      vazios.forEach(function(i){ i.setAttribute("aria-invalid", "true"); });
+      erroAcomp.textContent = "Preencha o nome de cada acompanhante ou remova a linha em branco.";
+      vazios[0].focus();
+      return;
+    }
+    var acomps = inputs().map(function(i){ return i.value.trim().replace(/\s+/g, " "); });
+    enviar.disabled = true;
+    enviar.textContent = "Confirmando…";
+    function falhou(msg){
+      enviar.disabled = false;
+      enviar.textContent = "Confirmar presença";
+      erroEnvio.textContent = msg || "Não foi possível confirmar agora. Verifique sua internet e tente de novo.";
+    }
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ nome: nm, acompanhantes: acomps })
+    })
+      .then(function(res){ return res.json(); })
+      .then(function(r){
+        if (!r || !r.ok) return falhou(r && r.erro);
+        enviar.disabled = false;
+        enviar.textContent = "Confirmar presença";
+        var primeiro = nm.split(" ")[0];
+        $("msg-ok").textContent = r.acompanhantes === 0
+          ? "Obrigado, " + primeiro + "! Sua presença está confirmada."
+          : "Obrigado, " + primeiro + "! Confirmamos " + r.total + " pessoas: " + juntar(["você"].concat(acomps)) + ".";
+        $("formulario").style.display = "none";
+        $("obrigado").classList.add("ativo");
+        $("obrigado").scrollIntoView({ block: "center" });
+      })
+      .catch(function(){ falhou(); });
+  });
+
+  $("voltar").addEventListener("click", function(){
+    $("obrigado").classList.remove("ativo");
+    $("formulario").style.display = "";
+    nome.focus();
+  });
+
+  atualizar();
+})();
+</script>
+<script>
+(function(){
+  var b=document.getElementById('rotaBotao'),a=document.getElementById('rotaApps');
+  if(/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent))document.getElementById('rotaApple').hidden=false;
+  b.addEventListener('click',function(){var abrir=a.hidden;a.hidden=!abrir;b.setAttribute('aria-expanded',String(abrir));});
+})();
+</script>
+</body>
+</html>
